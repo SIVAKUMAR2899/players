@@ -1,5 +1,5 @@
 const firebase = require('../db');
-const players = require('../models/player');
+const players = require('../models/players');
 const firestore = firebase.firestore();
 
 const addplayer = async (req,res) => {
