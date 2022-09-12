@@ -1,5 +1,5 @@
 const firebase = require('../db');
-const players = require('../models/players');
+const playersmodel = require('../models/players');
 const firestore = firebase.firestore();
 
 const addplayer = async (req,res) => {
@@ -21,7 +21,7 @@ const getallplayer = async (req,res,next) => {
             res.status(404).send('no player record found');
         }else {
             data.forEach(doc => {
-                const players = new players(
+                const players = new playersmodel(
                     doc.id,
                     doc.data().firstname,
                     doc.data().lastname,
@@ -34,6 +34,7 @@ const getallplayer = async (req,res,next) => {
                 playersArray.push(players);
             });
             res.send(playersArray);
+           
         }
     } catch (error) {
         res.status(400).send(error.message)
