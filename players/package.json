@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "script": {
-    "dev":"nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
   "keywords": [],
   "author": "",
@@ -21,12 +22,9 @@
     "firebase": "^8.6.8",
     "firebase-admin": "^11.0.1",
     "firebase-functions": "^3.23.0",
+    "nodemon": "^2.0.19",
     "npm": "^8.19.1",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "nodemon": "^2.0.19"
-  },
-  "engines": {
-    "node": "12.14.1"
+    "react-dom": "^16.14.0"
   }
 }
