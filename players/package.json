@@ -23,12 +23,9 @@
     "firebase-functions": "^3.23.0",
     "npm": "^8.19.1",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
-  },
-  "devDependencies": {
+    "react-dom": "^16.14.0",
     "nodemon": "^2.0.19"
   },
-  
   "engines": {
     "node": "12.14.1"
   }
