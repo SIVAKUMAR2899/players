@@ -7,7 +7,8 @@ class users {
         this.gender = gender;
         this.contact = contact;
         this.email = email;
-        this.address = address;
+        this.address = address,
+        this.password = password;
     }
 }
 

@@ -39,7 +39,8 @@ const getalluser = async (req,res,next) => {
                     doc.data().gender,
                     doc.data().contact,
                     doc.data().email,
-                    doc.data().address
+                    doc.data().address,
+                    doc.data().password
                 );
                 usersArray.push(users);
             });
