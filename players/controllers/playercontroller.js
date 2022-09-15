@@ -1,4 +1,5 @@
 const firebase = require('../db');
+const players = require('../models/players');
 const playersmodel = require('../models/players');
 const firestore = firebase.firestore();
 
@@ -6,9 +7,15 @@ const addplayer = async (req,res) => {
     try {
         const data = req.body;
         await firestore.collection('players').doc().set(data);
-        res.send('Player added successfully');
+        res.status(200).json({
+            status:200,
+            message:"player saved successfully"
+        });
     } catch (error) {
-        res.status(400).send(error.message);
+        res.status(400).json({
+           status:400,
+           message:(error.message)
+        });
     }
 }
 
@@ -18,7 +25,10 @@ const getallplayer = async (req,res,next) => {
         const data = await players.get();
         const playersArray = [];
         if(data.empty) {
-            res.status(404).send('no player record found');
+            res.status(404).json({
+                status:404,
+                message:"no players have"
+            });
         }else {
             data.forEach(doc => {
                 const players = new playersmodel(
@@ -37,7 +47,10 @@ const getallplayer = async (req,res,next) => {
            
         }
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(400).json({
+            status:400,
+            message:(error.message)
+        })
     }
 }
 
@@ -47,12 +60,18 @@ const getplayer = async (req,res,next) => {
         const players = await firestore.collection('players').doc(id);
         const data = await players.get();
         if(!data.exists) {
-            res.status(404).send('player not found');
+            res.status(404).json({
+                status:404,
+                message:"player not found"
+            });
         }else {
             res.send(data.data());
         }
     }catch(error) {
-        res.status(400).send(error.message);
+        res.status(400).json({
+            staus:400,
+            message:(error.message)
+        });
     }
 }
 
@@ -62,7 +81,10 @@ const updateplayer = async (req,res,next) => {
         const data = req.body;
         const players = await firestore.collection('players').doc(id);
         await players.update(data);
-        res.send('Player updated successfully');
+        res.status(200).json({
+            status:200,
+            message:"players update successully"
+        });
     }catch(error){
         res.status(404).send(error.message);
     }
@@ -72,7 +94,10 @@ const deleteplayer = async (req,res,next) => {
     try{
         const id = req.params.id;
         await firestore.collection('players').doc(id).delete();
-        res.send('Player deleted successfully')
+        res.status(200).json({
+            status:200,
+            message:"players delete successully"
+        });
     }catch(error){
         res.status(400).send(error.message);
     }
