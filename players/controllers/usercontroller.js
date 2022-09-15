@@ -1,15 +1,15 @@
 const firebase = require('../db');
-const players = require('../models/players');
-const playersmodel = require('../models/players');
+const users = require('../models/users');
+const usersmodel = require('../models/users');
 const firestore = firebase.firestore();
 
-const addplayer = async (req,res) => {
+const adduser = async (req,res) => {
     try {
         const data = req.body;
-        await firestore.collection('players').doc().set(data);
+        await firestore.collection('users').doc().set(data);
         res.status(200).json({
             status:200,
-            message:"player saved successfully"
+            message:"User saved successfully"
         });
     } catch (error) {
         res.status(400).json({
@@ -19,11 +19,11 @@ const addplayer = async (req,res) => {
     }
 }
 
-const getallplayer = async (req,res,next) => {
+const getalluser = async (req,res,next) => {
     try {
-        const players = await firestore.collection('players');
-        const data = await players.get();
-        const playersArray = [];
+        const users = await firestore.collection('users');
+        const data = await users.get();
+        const usersArray = [];
         if(data.empty) {
             res.status(404).json({
                 status:404,
@@ -31,7 +31,7 @@ const getallplayer = async (req,res,next) => {
             });
         }else {
             data.forEach(doc => {
-                const players = new playersmodel(
+                const users = new usersmodel(
                     doc.id,
                     doc.data().firstname,
                     doc.data().lastname,
@@ -41,9 +41,9 @@ const getallplayer = async (req,res,next) => {
                     doc.data().email,
                     doc.data().address
                 );
-                playersArray.push(players);
+                usersArray.push(users);
             });
-            res.send(playersArray);
+            res.send(usersArray);
            
         }
     } catch (error) {
@@ -54,11 +54,11 @@ const getallplayer = async (req,res,next) => {
     }
 }
 
-const getplayer = async (req,res,next) => {
+const getuser = async (req,res,next) => {
     try{
         const id = req.params.id;
-        const players = await firestore.collection('players').doc(id);
-        const data = await players.get();
+        const users = await firestore.collection('users').doc(id);
+        const data = await users.get();
         if(!data.exists) {
             res.status(404).json({
                 status:404,
@@ -75,39 +75,42 @@ const getplayer = async (req,res,next) => {
     }
 }
 
-const updateplayer = async (req,res,next) => {
+const updateuser = async (req,res,next) => {
     try{
         const id = req.params.id;
         const data = req.body;
-        const players = await firestore.collection('players').doc(id);
-        await players.update(data);
+        const users = await firestore.collection('users').doc(id);
+        await users.update(data);
         res.status(200).json({
             status:200,
-            message:"players update successully"
+            message:"user update successully"
         });
     }catch(error){
         res.status(404).send(error.message);
     }
 }
 
-const deleteplayer = async (req,res,next) => {
+const deleteuser = async (req,res,next) => {
     try{
         const id = req.params.id;
-        await firestore.collection('players').doc(id).delete();
+        await firestore.collection('users').doc(id).delete();
         res.status(200).json({
             status:200,
-            message:"players delete successully"
+            message:"user delete successully"
         });
     }catch(error){
-        res.status(400).send(error.message);
+        res.status(400).json({
+            status:400,
+            message:(error.message)
+        });
     }
 }
 
 module.exports = {
-    addplayer,
-    getallplayer,
-    getplayer,
-    updateplayer,
-    deleteplayer
+    adduser,
+    getalluser,
+    getuser,
+    updateuser,
+    deleteuser
     
 }

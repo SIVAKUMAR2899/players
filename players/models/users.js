@@ -1,4 +1,4 @@
-class players {
+class users {
     constructor(id,firstname,lastname,age,gender,contact,email,address) {
         this.id = id;
         this.firstname = firstname;
@@ -11,4 +11,4 @@ class players {
     }
 }
 
-module.exports = players;
+module.exports = users;
